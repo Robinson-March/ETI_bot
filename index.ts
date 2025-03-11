@@ -43,7 +43,7 @@ bot.callbackQuery("accepted", async (ctx) => {
     
     I am your friendly neighbourhood payment bot, you can explore our services below.
 
-If you need assistance please <a href="http://T.me/Elitestraderadmin">message/reply here</a> and my team will be happy to direct you.`,
+If you need assistance please <a href="http://t.me/Elitestraderadmin">message/reply here</a> and my team will be happy to direct you.`,
     { reply_markup: optionsKeyboard }
   );
 });
@@ -78,7 +78,7 @@ const tradeSignalsKeyboard = new InlineKeyboard()
 const tradeSignalsMessage = `Welcome to Elite Trading Institution! 
 I am your friendly neighbourhood payment bot, you can subscribe below.
 
-If you need assistance, please message/reply directly here, and my team will be happy to help you 😊
+If you need assistance, please <a href="http://t.me/Elitestraderadmin">message/reply</a> directly here, and my team will be happy to help you 😊
 
 Available plans: /plans  
 More information: <a href="https://google.com">Click Here</a>  
