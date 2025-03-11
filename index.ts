@@ -11,7 +11,7 @@ const startKeyboard = new InlineKeyboard().text("✅ I Accept", "accepted");
 
 bot.command("start", (ctx) =>
   ctx.reply(
-    `Welcome to <a href="https://google.com">EliteTrainingInstitution</a> 🥇 VIP!\n\nTo continue, please accept:\n—<a href="https://google.com">Privacy Policy</a>`,
+    `Welcome to <a href="https://google.com">EliteTrainingInstitution</a> 🥇 VIP!\n\nTo continue, please accept:\n—<a href="https://google.com">Privacy Policy</a>\n\n You can proceed to our official website and read more about us by clicking on the link below 👇 \n\n <a href="https://google.com">Elite Trading Institution</a>`,
     { parse_mode: "HTML", reply_markup: startKeyboard }
   )
 );
@@ -34,10 +34,16 @@ bot.callbackQuery("accepted", async (ctx) => {
     .row()
     .text("🤝 BECOME OUR PARTNER", "become_partner")
     .row()
-    .text("⭐ REVIEWS", "reviews");
+    .text("⭐ REVIEWS", "reviews")
+    .row()
+    .text("🔧 Services", "services");
 
   await ctx.reply(
-    "Thank you for accepting! 🎉\n\nYou can now explore our services:",
+    `Welcome to Elite Trading Institution!
+    
+    I am your friendly neighbourhood payment bot, you can explore our services below.
+
+If you need assistance please <a href="http://T.me/Elitestraderadmin">message/reply here</a> and my team will be happy to direct you.`,
     { reply_markup: optionsKeyboard }
   );
 });
@@ -55,7 +61,7 @@ bot.callbackQuery("who_we_are", (ctx) =>
 
 // PUBLIC GROUP
 const publicGroupMessage =
-  'Join our public group here: <a href="https://t.me/GISTLOVERBLOG_MEDIA">Telegram Group</a>';
+  'Join our public group here: <a href="https://t.me/Elitetrading_institution">Telegram Group</a>';
 
 bot.command("public_group", (ctx) =>
   ctx.reply(publicGroupMessage, { parse_mode: "HTML" })
@@ -65,16 +71,50 @@ bot.callbackQuery("public_group", (ctx) =>
   ctx.reply(publicGroupMessage, { parse_mode: "HTML" })
 );
 
-// TRADE SIGNALS
-const tradeSignalsMessage =
-  'Subscribe to our premium trade signals: <a href="https://google.com">Trade Signals</a>';
+const tradeSignalsKeyboard = new InlineKeyboard()
+  .text("Yearly $199", "subscribe_yearly")
+  .text("Lifetime $499", "subscribe_lifetime");
 
+const tradeSignalsMessage = `Welcome to Elite Trading Institution! 
+I am your friendly neighbourhood payment bot, you can subscribe below.
+
+If you need assistance, please message/reply directly here, and my team will be happy to help you 😊
+
+Available plans: /plans  
+More information: <a href="https://google.com">Click Here</a>  
+Public Group: <a href="https://t.me/Elitetrading_institution">Here</a>  
+
+Please select your subscription plan:`;
+
+// Fix 1: Handle "/trade_signals" Command
 bot.command("trade_signals", (ctx) =>
-  ctx.reply(tradeSignalsMessage, { parse_mode: "HTML" })
+  ctx.reply(tradeSignalsMessage, {
+    parse_mode: "HTML",
+    reply_markup: tradeSignalsKeyboard,
+  })
 );
 
+// Fix 2: Handle Trade Signals Button Click
 bot.callbackQuery("trade_signals", (ctx) =>
-  ctx.reply(tradeSignalsMessage, { parse_mode: "HTML" })
+  ctx.reply(tradeSignalsMessage, {
+    parse_mode: "HTML",
+    reply_markup: tradeSignalsKeyboard,
+  })
+);
+
+bot.command("plans", (ctx) =>
+  ctx.reply("Please select your subscription plan:", {
+    parse_mode: "HTML",
+    reply_markup: tradeSignalsKeyboard,
+  })
+);
+
+// /moreinfo redirects to a link
+bot.command("moreinfo", (ctx) =>
+  ctx.reply(
+    'For more information, visit: <a href="https://google.com">Click Here</a>',
+    { parse_mode: "HTML" }
+  )
 );
 
 // MENTORSHIP COURSE
@@ -122,6 +162,16 @@ bot.command("reviews", (ctx) =>
 
 bot.callbackQuery("reviews", (ctx) =>
   ctx.reply(reviewsMessage, { parse_mode: "HTML" })
+);
+const servicesMessage =
+  'Contact Us by clicking: <a href="http://T.me/Elitestraderadmin">here</a>';
+
+bot.command("services", (ctx) =>
+  ctx.reply(servicesMessage, { parse_mode: "HTML" })
+);
+
+bot.callbackQuery("services", (ctx) =>
+  ctx.reply(servicesMessage, { parse_mode: "HTML" })
 );
 
 // Handle unknown commands
