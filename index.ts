@@ -11,6 +11,7 @@ import "./commands/moreInfo";
 import "./handlers/accepted";
 import "./callbacks/weeklyOffer";
 import "./callbacks/monthlyOffers";
+import "./commands/mentorship";
 import express from "express";
 
 const app = express();

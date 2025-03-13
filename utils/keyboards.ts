@@ -26,6 +26,7 @@ export const tradeSignalsKeyboard = new InlineKeyboard()
   .text("Yearly $199", "subscribe_yearly")
   .text("Lifetime $499", "subscribe_lifetime");
 
+
 export const accountManagementKeyboard = new InlineKeyboard()
   .text("Weekly offer", "weekly_offer")
   .text("Monthly offer", "monthly_offer");

@@ -6,7 +6,7 @@ Chose a weekly offer
 `;
 
 const twoThoInfo = `
-WEEKLY ACCOUNT MANAGEMENT OFFER. 
+<b>WEEKLY ACCOUNT MANAGEMENT OFFER.</b> 
 
 Your benefits.
 
@@ -33,7 +33,7 @@ Required details to participate:
 `;
 
 const fiveThoInfo = `
-WEEKLY ACCOUNT MANAGEMENT OFFER. 
+<b>WEEKLY ACCOUNT MANAGEMENT OFFER.</b> 
 
 Your benefits:
 
@@ -61,7 +61,7 @@ Receiving USDT/etherum address.
 `;
 
 const tenThoInfo = `
-WEEKLY ACCOUNT MANAGEMENT OFFER. 
+<b>WEEKLY ACCOUNT MANAGEMENT OFFER.</b> 
 
 Your benefits:
 

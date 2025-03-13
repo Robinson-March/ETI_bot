@@ -10,7 +10,7 @@ Chose a monthly offer
 `;
 
 const twoThoInfo = `
-MONTHLY ACCOUNT MANAGEMENT OFFER. 
+<b>MONTHLY ACCOUNT MANAGEMENT OFFER.</b> 
 
 Your benefits.
 
@@ -39,7 +39,7 @@ Required details to participate:
 `;
 
 const fiveThoInfo = `
-MONTHLY ACCOUNT MANAGEMENT OFFER. 
+<b>MONTHLY ACCOUNT MANAGEMENT OFFER.</b> 
 
 Your benefits.
 
@@ -69,7 +69,7 @@ Required details to participate:
 `;
 
 const tenThoInfo = `
-MONTHLY ACCOUNT MANAGEMENT OFFER. 
+<b>MONTHLY ACCOUNT MANAGEMENT OFFER.</b> 
 
 Your benefits.
 
