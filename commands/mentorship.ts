@@ -1,4 +1,5 @@
 import { bot } from "../bot";
+import { paymentKeyboard } from "../utils/keyboards";
 
 const mentorshipMessage = `
 <b>Your Benefits:</b>
@@ -16,9 +17,15 @@ Price: $999 USD
 Billing period: lifetime`;
 
 bot.command("mentorship_course", (ctx) =>
-  ctx.reply(mentorshipMessage, { parse_mode: "HTML" })
+  ctx.reply(mentorshipMessage, {
+    parse_mode: "HTML",
+    reply_markup: paymentKeyboard,
+  })
 );
 
 bot.callbackQuery("mentorship_course", (ctx) =>
-  ctx.reply(mentorshipMessage, { parse_mode: "HTML" })
+  ctx.reply(mentorshipMessage, {
+    parse_mode: "HTML",
+    reply_markup: paymentKeyboard,
+  })
 );

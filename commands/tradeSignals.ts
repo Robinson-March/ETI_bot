@@ -1,5 +1,5 @@
 import { bot } from "../bot";
-import { tradeSignalsKeyboard } from "../utils/keyboards";
+import { paymentKeyboard, tradeSignalsKeyboard } from "../utils/keyboards";
 
 const tradeSignalsMessage = `Please select your subscription plan:`;
 
@@ -17,7 +17,7 @@ Your Benefits:
 
 Price: $999 USD 
 Billing period: lifetime
-`
+`;
 const yearlyMessage = `
 Your benefits :
 
@@ -30,7 +30,7 @@ Your benefits :
 Price:$199 USD 
 Billing period: 1 year 
 Billing mode: recurring
-`
+`;
 bot.command("trade_signals", (ctx) =>
   ctx.reply(tradeSignalsMessage, {
     parse_mode: "HTML",
@@ -47,10 +47,12 @@ bot.callbackQuery("trade_signals", (ctx) =>
 bot.callbackQuery("subscribe_yearly", (ctx) =>
   ctx.reply(yearlyMessage, {
     parse_mode: "HTML",
+    reply_markup: paymentKeyboard,
   })
 );
 bot.callbackQuery("subscribe_lifetime", (ctx) =>
   ctx.reply(lifetimeMessage, {
     parse_mode: "HTML",
+    reply_markup: paymentKeyboard,
   })
 );
