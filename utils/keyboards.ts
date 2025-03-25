@@ -26,6 +26,18 @@ export const tradeSignalsKeyboard = new InlineKeyboard()
   .text("Yearly $199", "subscribe_yearly")
   .text("Lifetime $499", "subscribe_lifetime");
 
+export const yearlySignalKeyboard = new InlineKeyboard()
+  .text("Manual Yearly Deposit", "manual_yearly_deposit")
+  .text("Automatic Yearly Deposit", "automatic_yearly_deposit");
+export const lifetimeSignalKeyboard = new InlineKeyboard()
+  .text("Manual Lifetime Deposit", "manual_lifetime_deposit")
+  .text("Automatic Lifetime Deposit", "automatic_lifetime_deposit");
+export const weeklyofferKeyboard = new InlineKeyboard()
+  .text("Manual Deposit", "manual_weekly_deposit")
+  .text("Automatic Deposit", "automatic_weekly_deposit");
+export const monthlyofferKeyboard = new InlineKeyboard()
+  .text("Manual Deposit", "manual_monthly_deposit")
+  .text("Automatic Deposit", "automatic_monthly_deposit");
 
 export const accountManagementKeyboard = new InlineKeyboard()
   .text("Weekly offer", "weekly_offer")
@@ -45,12 +57,11 @@ export const monthlyOfferKeyboard = new InlineKeyboard()
   .row()
   .text("💸💸💸 Deposit $500,000 get $3,500,000", "500000");
 
+// Create an inline keyboard with all payment methods
 export const paymentKeyboard = new InlineKeyboard()
   .text("⚡ USDT (Tether USD (Tron/TRC20))", "usdt_trc20")
   .row()
   .text("⚡ USDT (Tether USD (Ethereum/ERC20))", "usdt_erc20")
-  .row()
-  .text("⚡ USDT (Tether USD (BEP2))", "usdt_bep2")
   .row()
   .text("⚡ USDT (Tether USD (BEP20))", "usdt_bep20")
   .row()
@@ -58,11 +69,17 @@ export const paymentKeyboard = new InlineKeyboard()
   .row()
   .text("⚡ BTC (Bitcoin)", "btc")
   .row()
-  .text("⚡ USDC (USD Coin (ERC20))", "usdc")
+  .text("⚡ USDC (USD Coin (ERC20))", "usdc_erc20")
+  .row()
+  .text("⚡ USDC (USD Coin (TRC20))", "usdc_trc20")
   .row()
   .text("⚡ LTC (Litecoin)", "ltc")
   .row()
   .text("⚡ DOGE (Dogecoin)", "doge")
+  .row()
+  .text("⚡ BUSD (Binance USD (BEP20))", "busd_bep20")
+  .row()
+  .text("⚡ BUSD (Binance USD (ERC20))", "busd_erc20")
   .row()
   .text("🔑 Access Code", "access_code")
   .row()

@@ -2,7 +2,7 @@ import { bot } from "../bot";
 
 const becomePartnerMessage = `
 Join us as a partner and earn commissions. 
-Learn more here: <a href="https://google.com">Partnership Program</a>
+Learn more here: <a href="https://elitetradinginstitution.com/">Partnership Program</a>
 `;
 
 bot.command("become_partner", (ctx) =>

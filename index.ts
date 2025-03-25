@@ -12,6 +12,7 @@ import "./handlers/accepted";
 import "./callbacks/weeklyOffer";
 import "./callbacks/monthlyOffers";
 import "./commands/mentorship";
+import "./callbacks/paymentsCallback";
 import express from "express";
 
 const app = express();
