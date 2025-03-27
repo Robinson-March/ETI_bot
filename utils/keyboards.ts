@@ -35,6 +35,9 @@ export const lifetimeSignalKeyboard = new InlineKeyboard()
 export const weeklyofferKeyboard = new InlineKeyboard()
   .text("Manual Deposit", "manual_weekly_deposit")
   .text("Automatic Deposit", "automatic_weekly_deposit");
+export const mentorshipKeyboard = new InlineKeyboard()
+  .text("Manual Deposit", "manual_mentorship_course")
+  .text("Automatic Deposit", "automatic_mentorship_course");
 export const monthlyofferKeyboard = new InlineKeyboard()
   .text("Manual Deposit", "manual_monthly_deposit")
   .text("Automatic Deposit", "automatic_monthly_deposit");

@@ -1,63 +1,33 @@
 import { bot } from "../bot";
+import { getCryptoPrice, paymentOptions } from "../utils/crypto";
+import { InlineKeyboard } from "grammy";
 import {
   lifetimeSignalKeyboard,
-  paymentKeyboard,
   tradeSignalsKeyboard,
-  yearlySignalKeyboard,
 } from "../utils/keyboards";
 
 const tradeSignalsMessage = `Please select your subscription plan:`;
-
-const lifetimeMessage = `
-<b>Your Benefits:</b>
-
-- Lifetime Membership 
-- Telegram Support group.
-- Advanced Fundamental Analysis (Central Bank/Monetary policy, Interest rates, Inflation data analysis, Employment and Unemployment data analysis, Geo-political Events).
-- Advanced Technical Analysis (Full access to my strategy, Daily Mapping Reasons for entry and reason for exit).
-- Access to my full course (PDF)
-- Past and Future webinars 
-- 24hrs access to online Training 
-- Access to all recorded Content
-
-<b>Price:</b> $999 USD  
-<b>Billing period:</b> Lifetime
-`;
-
-const yearlyMessage = `
-<b>Your benefits:</b>
-
-- 1 year access to signal channel.
-- 5-7 premium signals daily.
-- Technical Analysis Class.
-- Fundamental Analysis.
-- Psychology and mindset development.
-
-<b>Price:</b> $199 USD  
-<b>Billing period:</b> 1 year  
-<b>Billing mode:</b> Recurring
-`;
 
 const automaticYearlyDeposit = `
 <b>Proceed to our official website:</b> <a href="https://elitetradinginstitution.com/">Elite Trading Institution</a>
 
 - Create an account.
-- Log into your account dashboard.
-- Click on "Connect Wallet" and connect your wallet to your account.
-- Click on "Purchase Signals".
+- Log into your dashboard.
+- Click "Connect Wallet" and connect your wallet.
+- Click "Purchase Signals".
 - Select "YEARLY VIP OFFER".
-- Click on the "Subscribe" button to complete your purchase.
+- Click "Subscribe" to complete your purchase.
 `;
 
 const automaticLifetimeDeposit = `
 <b>Proceed to our official website:</b> <a href="https://elitetradinginstitution.com/">Elite Trading Institution</a>
 
 - Create an account.
-- Log into your account dashboard.
-- Click on "Connect Wallet" and connect your wallet to your account.
-- Click on "Purchase Signals".
+- Log into your dashboard.
+- Click "Connect Wallet" and connect your wallet.
+- Click "Purchase Signals".
 - Select "LIFETIME VIP OFFER".
-- Click on the "Subscribe" button to complete your purchase.
+- Click "Subscribe" to complete your purchase.
 `;
 
 // Trade Signals Command
@@ -77,47 +47,74 @@ bot.callbackQuery("trade_signals", async (ctx) => {
   });
 });
 
-// Yearly Subscription Callback
-bot.callbackQuery("subscribe_yearly", async (ctx) => {
+// Subscription Callbacks
+const handleSubscription = async (ctx: any, plan: "yearly" | "lifetime") => {
   await ctx.answerCallbackQuery();
-  await ctx.reply("Select your payment form", {
+  await ctx.reply("Select a cryptocurrency for payment:", {
     parse_mode: "HTML",
-    reply_markup: yearlySignalKeyboard,
+    reply_markup: cryptoKeyboard(plan),
   });
-});
+};
 
-// Manual Deposit Callback
-bot.callbackQuery("manual_yearly_deposit", async (ctx) => {
-  await ctx.answerCallbackQuery();
-  await ctx.reply(yearlyMessage, {
-    parse_mode: "HTML",
-    reply_markup: paymentKeyboard,
-  });
-});
-bot.callbackQuery("manual_lifetime_deposit", async (ctx) => {
-  await ctx.answerCallbackQuery();
-  await ctx.reply(lifetimeMessage, {
-    parse_mode: "HTML",
-    reply_markup: paymentKeyboard,
-  });
-});
+bot.callbackQuery("manual_yearly_deposit", async (ctx) =>
+  handleSubscription(ctx, "yearly")
+);
 
-// Automatic Yearly Deposit Callback
+bot.callbackQuery("manual_lifetime_deposit", async (ctx) =>
+  handleSubscription(ctx, "lifetime")
+);
+
+// Automatic Payment Callbacks
 bot.callbackQuery("automatic_yearly_deposit", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply(automaticYearlyDeposit, {
-    parse_mode: "HTML",
-  });
+  await ctx.reply(automaticYearlyDeposit, { parse_mode: "HTML" });
 });
 
-// Automatic Lifetime Deposit Callback
 bot.callbackQuery("automatic_lifetime_deposit", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply(automaticLifetimeDeposit, {
-    parse_mode: "HTML",
+  await ctx.reply(automaticLifetimeDeposit, { parse_mode: "HTML" });
+});
+
+// Handle Crypto Selection & Show Payment Details
+Object.entries(paymentOptions).forEach(([key, { id, symbol, address }]) => {
+  bot.callbackQuery(`yearly_${key}`, async (ctx) => {
+    const price = await getCryptoPrice(id, symbol, address, 199);
+    await ctx.reply(price, { parse_mode: "HTML" });
+  });
+
+  bot.callbackQuery(`lifetime_${key}`, async (ctx) => {
+    const price = await getCryptoPrice(id, symbol, address, 999);
+    await ctx.reply(price, { parse_mode: "HTML" });
   });
 });
 
+// Function to generate Crypto Keyboard
+const cryptoKeyboard = (prefix: "yearly" | "lifetime") => {
+  return new InlineKeyboard()
+    .text("⚡ USDT (Tether USD (Tron/TRC20))", `${prefix}_pay_usdt_trc20`)
+    .row()
+    .text("⚡ USDT (Tether USD (Ethereum/ERC20))", `${prefix}_pay_usdt_erc20`)
+    .row()
+    .text("⚡ BTC (Bitcoin)", `${prefix}_pay_btc`)
+    .row()
+    .text("⚡ ETH (Ether)", `${prefix}_pay_eth`)
+    .row()
+    .text("⚡ LTC (Litecoin)", `${prefix}_pay_ltc`)
+    .row()
+    .text("⚡ DOGE (Dogecoin)", `${prefix}_pay_doge`)
+    .row()
+    .text("⚡ BUSD (Binance USD (BEP20))", `${prefix}_pay_busd_bep20`)
+    .row()
+    .text("⚡ BUSD (Binance USD (ERC20))", `${prefix}_pay_busd_erc20`)
+    .row()
+    .text("⚡ USDC (USD Coin (ERC20))", `${prefix}_pay_usdc_erc20`)
+    .row()
+    .text("⚡ USDC (USD Coin (TRC20))", `${prefix}_pay_usdc_trc20`)
+    .row()
+    .text("🔑 Access Code", "access_code")
+    .row()
+    .text("« Back", "back");
+};
 // Lifetime Subscription Callback
 bot.callbackQuery("subscribe_lifetime", async (ctx) => {
   await ctx.answerCallbackQuery();

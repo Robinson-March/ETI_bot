@@ -1,55 +1,136 @@
 import { bot } from "../bot";
-import {
-  monthlyofferKeyboard,
-  monthlyOfferKeyboard,
-  paymentKeyboard,
-} from "../utils/keyboards";
+import { monthlyofferKeyboard, monthlyOfferKeyboard } from "../utils/keyboards";
+import { InlineKeyboard } from "grammy";
+import axios from "axios";
 
-const monthlyOfferInfo = `Chose a monthly offer`;
+const COINGECKO_API = "https://api.coingecko.com/api/v3/simple/price";
 
-const generateOfferInfo = (price: number, returnAmount: number) => `
-<b>MONTHLY ACCOUNT MANAGEMENT OFFER.</b> 
+const monthlyOfferInfo = `Choose a monthly offer`;
+
+const generateOfferInfo = (
+  price: number,
+  returnAmount: number,
+  cryptoAmount: string,
+  symbol: string,
+  address: string
+) => `
+<b>MONTHLY ACCOUNT MANAGEMENT OFFER.</b>
 
 Your benefits:
+✅ Free access to our Lifetime VIP channel (ELITE TRADERS CLUB).
+✅ Free access to our Lifetime Mentorship.
+✅ 15% referral bonus commission on each active member referred.
+✅ Percentage Split 70%:30% (You get 70%, we get 30%).
+✅ 10% referral bonus on reinvestment.
 
-- Free access to our Lifetime VIP channel (ELITE TRADERS CLUB) to monitor your trade progress.
-- Free access to our Lifetime Mentorship.
-- 15% referral bonus commission on each active member referred.
-- Percentage Split 70%:30% (Depositor will get 70%, we will get 30% after trade).
-- 10% referral bonus on downlines' continuous reinvestment.
+💵 Price: $${price.toLocaleString()} USD ≈ <b><u> ${cryptoAmount} ${symbol} </u> </b>
+📈 Return Amount: $${returnAmount.toLocaleString()} USD  
+⏳ Duration: One month (20 trading days).
 
-Price: $${price.toLocaleString()} USD  
-Return amount: $${returnAmount.toLocaleString()} USD  
-Return duration: One month (20 trading days).
+<b>${symbol} Payment Address:</b>  
+<code>${address}</code>
 
-Required details to participate:
-- Full Name:
-- Email address:
-- Receiving USDT/Ethereum address.
+🔹 Required details:  
+- Full Name  
+- Email Address  
+- Receiving USDT/Ethereum Address  
 `;
 
 const monthlyAutomaticMessage = `
 Proceed to our <a href="https://elitetradinginstitution.com/">official website</a> 
 
--Create an account
--Log into your account dashboard 
--Click on connect wallet and connect your wallet to your account.
- -Click on account management 
--Buy a Plan .
--Choose your best Monthly offer 
--And click on JOIN PLAN to apply for your account managemen
+- Create an account  
+- Log into your account dashboard  
+- Click on "Connect Wallet" and connect your wallet  
+- Click on "Account Management"  
+- Buy a Plan  
+- Choose your best monthly offer  
+- Click on "JOIN PLAN" to apply for account management.
 `;
+
 const offers = {
-  "50000": generateOfferInfo(50000, 350000),
-  "100000": generateOfferInfo(100000, 700000),
-  "500000": generateOfferInfo(500000, 3500000),
+  "50000": { price: 50000 },
+  "100000": { price: 100000 },
+  "500000": { price: 500000 },
 };
 
+const paymentOptions = {
+  usdt_trc20: {
+    id: "tether",
+    symbol: "USDT",
+    address: "TW2opq7dNFLQgf3MacnbSgezpFfinB8tm3",
+  },
+  usdt_erc20: {
+    id: "tether",
+    symbol: "USDT",
+    address: "0x0e1164Dc9f517861C8aFcd7c171B92F95f8Dfa02",
+  },
+  usdt_bep20: {
+    id: "tether",
+    symbol: "USDT",
+    address: "0x0e1164Dc9f517861C8aFcd7c171B92F95f8Dfa02",
+  },
+  eth: {
+    id: "ethereum",
+    symbol: "ETH",
+    address: "0x0e1164Dc9f517861C8aFcd7c171B92F95f8Dfa02",
+  },
+  btc: {
+    id: "bitcoin",
+    symbol: "BTC",
+    address: "bc1qz0ltmf0m627fzqynahtxtmdvv8yrkeh620l3lh",
+  },
+  usdc_erc20: {
+    id: "usd-coin",
+    symbol: "USDC",
+    address: "0x0e1164Dc9f517861C8aFcd7c171B92F95f8Dfa02",
+  },
+  usdc_trc20: {
+    id: "usd-coin",
+    symbol: "USDC",
+    address: "TW2opq7dNFLQgf3MacnbSgezpFfinB8tm3",
+  },
+  ltc: {
+    id: "litecoin",
+    symbol: "LTC",
+    address: "ltc1q69p9chl4x39ttmka8n90vaparwq7xxwrn6h0rr",
+  },
+  doge: {
+    id: "dogecoin",
+    symbol: "DOGE",
+    address: "DPnKhsKzzm2p18e5kDMRUx4FGt1BYcRJji",
+  },
+  busd_bep20: {
+    id: "binance-usd",
+    symbol: "BUSD",
+    address: "0x0e1164Dc9f517861C8aFcd7c171B92F95f8Dfa02",
+  },
+  busd_erc20: {
+    id: "binance-usd",
+    symbol: "BUSD",
+    address: "0x0e1164Dc9f517861C8aFcd7c171B92F95f8Dfa02",
+  },
+};
+
+// Function to fetch crypto price and convert amount
+const getCryptoPrice = async (coinId: string, priceUSD: number) => {
+  try {
+    const response = await axios.get(
+      `${COINGECKO_API}?ids=${coinId}&vs_currencies=usd`
+    );
+    const usdRate = response.data[coinId]?.usd || 0;
+    return usdRate ? (priceUSD / usdRate).toFixed(6) : "N/A";
+  } catch (error) {
+    console.error(`Error fetching ${coinId} price:`, error);
+    return "N/A";
+  }
+};
+
+// Handlers
 bot.callbackQuery("automatic_monthly_deposit", (ctx) =>
-  ctx.reply(monthlyAutomaticMessage, {
-    parse_mode: "HTML",
-  })
+  ctx.reply(monthlyAutomaticMessage, { parse_mode: "HTML" })
 );
+
 bot.callbackQuery("manual_monthly_deposit", (ctx) =>
   ctx.reply(monthlyOfferInfo, {
     parse_mode: "HTML",
@@ -58,17 +139,68 @@ bot.callbackQuery("manual_monthly_deposit", (ctx) =>
 );
 
 bot.callbackQuery("monthly_offer", (ctx) =>
-  ctx.reply("Select your payment form", {
+  ctx.reply("Select your payment method:", {
     parse_mode: "HTML",
     reply_markup: monthlyofferKeyboard,
   })
 );
 
-Object.entries(offers).forEach(([key, info]) => {
-  bot.callbackQuery(key, (ctx) =>
-    ctx.reply(info, {
-      parse_mode: "HTML",
-      reply_markup: paymentKeyboard,
-    })
+// Handle offer selection with dynamic keyboard
+Object.entries(offers).forEach(([offerKey, { price }]) => {
+  bot.callbackQuery(offerKey, (ctx) => {
+    const keyboard = new InlineKeyboard()
+      .text("⚡ USDT (Tether USD (Tron/TRC20))", `${offerKey}_usdt_trc20`)
+      .row()
+      .text("⚡ USDT (Tether USD (Ethereum/ERC20))", `${offerKey}_usdt_erc20`)
+      .row()
+      .text("⚡ USDT (Tether USD (BEP20))", `${offerKey}_usdt_bep20`)
+      .row()
+      .text("⚡ ETH (Ether)", `${offerKey}_eth`)
+      .row()
+      .text("⚡ BTC (Bitcoin)", `${offerKey}_btc`)
+      .row()
+      .text("⚡ USDC (USD Coin (ERC20))", `${offerKey}_usdc_erc20`)
+      .row()
+      .text("⚡ USDC (USD Coin (TRC20))", `${offerKey}_usdc_trc20`)
+      .row()
+      .text("⚡ LTC (Litecoin)", `${offerKey}_ltc`)
+      .row()
+      .text("⚡ DOGE (Dogecoin)", `${offerKey}_doge`)
+      .row()
+      .text("⚡ BUSD (Binance USD (BEP20))", `${offerKey}_busd_bep20`)
+      .row()
+      .text("⚡ BUSD (Binance USD (ERC20))", `${offerKey}_busd_erc20`)
+      .row()
+      .text("🔑 Access Code", `${offerKey}_access_code`)
+      .row()
+      .text("« Back", "back")
+      .row();
+
+    ctx.reply(
+      `Select a cryptocurrency for the $${price.toLocaleString()} USD offer:`,
+      {
+        parse_mode: "HTML",
+        reply_markup: keyboard,
+      }
+    );
+  });
+});
+
+// Handle crypto payment selection dynamically
+Object.entries(offers).forEach(([offerKey, { price }]) => {
+  Object.entries(paymentOptions).forEach(
+    ([cryptoKey, { id, symbol, address }]) => {
+      bot.callbackQuery(`${offerKey}_${cryptoKey}`, async (ctx) => {
+        const cryptoAmount = await getCryptoPrice(id, price);
+        const message = generateOfferInfo(
+          price,
+          price * 7,
+          cryptoAmount,
+          symbol,
+          address
+        );
+        await ctx.reply(message, { parse_mode: "HTML" });
+      });
+    }
   );
 });

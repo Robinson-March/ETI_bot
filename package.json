@@ -13,7 +13,9 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@coinpaprika/api-nodejs-client": "^2.0.0",
     "@types/express": "^5.0.0",
+    "axios": "^1.8.4",
     "express": "^4.21.2",
     "grammy": "^1.35.0"
   }
