@@ -17,24 +17,14 @@ const generateOfferInfo = (
 ) => `
 <b>MONTHLY ACCOUNT MANAGEMENT OFFER.</b>
 
-Your benefits:
-✅ Free access to our Lifetime VIP channel (ELITE TRADERS CLUB).
-✅ Free access to our Lifetime Mentorship.
-✅ 15% referral bonus commission on each active member referred.
-✅ Percentage Split 70%:30% (You get 70%, we get 30%).
-✅ 10% referral bonus on reinvestment.
 
-💵 Price: $${price.toLocaleString()} USD ≈ <b><u> ${cryptoAmount} ${symbol} </u> </b>
-📈 Return Amount: $${returnAmount.toLocaleString()} USD  
-⏳ Duration: One month (20 trading days).
+Please send <b><u> ${cryptoAmount} ${symbol} </u> </b> (exact amount, after commissions) to the following address:
 
-<b>${symbol} Payment Address:</b>  
 <code>${address}</code>
 
-🔹 Required details:  
-- Full Name  
-- Email Address  
-- Receiving USDT/Ethereum Address  
+This unique address is valid only for 7 hours. Your payment will be processed once we confirm your deposit.
+
+Click on contact us button and share the screenshot of your deposit to the admin for confirmation.  
 `;
 
 const monthlyAutomaticMessage = `

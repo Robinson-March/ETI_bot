@@ -74,10 +74,16 @@ export const getCryptoPrice = async (
     const cryptoAmount = (amountInUSD / usdRate).toFixed(6);
 
     return `
-<b>Subscription Plan:</b> ${amountInUSD === 999 ? "Lifetime" : "Yearly"}  
-<b>Price:</b> $${amountInUSD} USD ≈ <u> ${cryptoAmount} ${symbol}  </u>
-<b>Wallet Address:</b>  
+<b>Subscription Plan:</b> ${amountInUSD === 499 ? "Lifetime" : "Yearly"} 
+
+
+Please send <b><u> ${cryptoAmount} ${symbol} </u> </b> (exact amount, after commissions) to the following address:
+
 <code>${address}</code>
+
+This unique address is valid only for 7 hours. Your payment will be processed once we confirm your deposit.
+
+Click on contact us button and share the screenshot of your deposit to the admin for confirmation.  >
     `;
   } catch (error) {
     return `<b>Wallet Address:</b>\n<code>${address}</code>\n\n⚠️ Unable to fetch live price.`;

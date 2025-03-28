@@ -10,28 +10,14 @@ const mentorshipMessage = (
 ) => `
 <b>Elite Trading Mentorship Program</b>
 
-📌 <a href="https://elitetradinginstitution.com/">Visit our official website</a>
 
-🔹 **Steps to Enroll:**
-1. Create an account on our website.
-2. Log in to your dashboard.
-3. Click on "Connect Wallet" and link your wallet.
-4. Navigate to "Purchase Signals."
-5. Select **"MENTORSHIP OFFER."**
-6. Click "Subscribe" to finalize your enrollment.
+Please send <b><u> ${cryptoAmount} ${coin} </u> </b> (exact amount, after commissions) to the following address:
 
-🎓 **What You'll Gain:**
-✅ In-depth trading education (technical & fundamental analysis).  
-✅ Personalized mentorship from experienced traders.  
-✅ Exclusive trading strategies and market insights.  
-✅ Live trading sessions & Q&A.  
-✅ Access to our private trading community.  
+<code>${address}</code>
 
-<b>Price:</b> $999 USD ≈ ${cryptoAmount} ${coin}  
-<b>Billing period:</b> Lifetime  
+This unique address is valid only for 7 hours. Your payment will be processed once we confirm your deposit.
 
-<b>${coin} Payment Address:</b>  
-<code>${address || "No payment address available"}</code>  
+Click on contact us button and share the screenshot of your deposit to the admin for confirmation.  
 `;
 
 // Function to fetch crypto price from CoinGecko and calculate equivalent cost

@@ -4,6 +4,7 @@ import { InlineKeyboard } from "grammy";
 import {
   lifetimeSignalKeyboard,
   tradeSignalsKeyboard,
+  yearlySignalKeyboard,
 } from "../utils/keyboards";
 
 const tradeSignalsMessage = `Please select your subscription plan:`;
@@ -83,7 +84,7 @@ Object.entries(paymentOptions).forEach(([key, { id, symbol, address }]) => {
   });
 
   bot.callbackQuery(`lifetime_${key}`, async (ctx) => {
-    const price = await getCryptoPrice(id, symbol, address, 999);
+    const price = await getCryptoPrice(id, symbol, address, 499);
     await ctx.reply(price, { parse_mode: "HTML" });
   });
 });
@@ -123,3 +124,9 @@ bot.callbackQuery("subscribe_lifetime", async (ctx) => {
     reply_markup: lifetimeSignalKeyboard,
   });
 });
+bot.callbackQuery("subscribe_yearly", (ctx) =>
+  ctx.reply("Select your payment form", {
+    parse_mode: "HTML",
+    reply_markup: yearlySignalKeyboard,
+  })
+);

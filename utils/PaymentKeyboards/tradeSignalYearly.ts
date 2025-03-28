@@ -3,20 +3,13 @@ import { bot } from "../../bot";
 
 // Function to generate the yearly subscription message
 const yearlyMessage = (cryptoAmount: string, coin: string, address: string) => `
-<b>Your Benefits:</b>
+Please send <b><u> ${cryptoAmount} ${coin} </u> </b> (exact amount, after commissions) to the following address:
 
-- 1-year access to signal channel.
-- 5-7 premium signals daily.
-- Technical Analysis Class.
-- Fundamental Analysis.
-- Psychology and mindset development.
+<code>${address}</code>
 
-<b>Price:</b> $199 USD ≈ ${cryptoAmount} ${coin}
-<b>Billing Period:</b> 1 Year
-<b>Billing Mode:</b> Recurring
+This unique address is valid only for 7 hours. Your payment will be processed once we confirm your deposit.
 
-<b>${coin} Payment Address:</b>
-<code>${address || "No payment address available"}</code>
+Click on contact us button and share the screenshot of your deposit to the admin for confirmation.  
 `;
 
 // Function to fetch crypto price from CoinGecko

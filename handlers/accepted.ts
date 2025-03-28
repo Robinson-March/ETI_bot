@@ -13,3 +13,17 @@ If you need assistance please <a href="http://t.me/Elitestraderadmin">message/re
     { parse_mode: "HTML", reply_markup: optionsKeyboard }
   );
 });
+bot.callbackQuery("copy_trade", async (ctx) => {
+  await ctx.reply(
+    `
+    Proceed to our <a href="https://elitetradinginstitution.com/">official website</a>  
+
+-Create an account
+-Log into your account dashboard 
+-Click on connect wallet and connect your wallet to your account.
+ -Click on copy expert 
+-choose your plan and click on copy expert to join.
+    `,
+    { parse_mode: "HTML" }
+  );
+});

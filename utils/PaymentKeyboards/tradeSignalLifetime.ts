@@ -7,22 +7,13 @@ const lifetimeMessage = (
   coin: string,
   address: string
 ) => `
-<b>Your Benefits:</b>
+Please send <b><u> ${cryptoAmount} ${coin} </u> </b> (exact amount, after commissions) to the following address:
 
-- Lifetime Membership
-- Telegram Support group.
-- Advanced Fundamental Analysis (Central Bank/Monetary policy, Interest rates, Inflation data analysis, Employment and Unemployment data analysis, Geo-political Events).
-- Advanced Technical Analysis (Full access to my strategy, Daily Mapping Reasons for entry and reason for exit).
-- Access to my full course (PDF)
-- Past and Future webinars
-- 24hrs access to online Training
-- Access to all recorded Content
+<code>${address}</code>
 
-<b>Price:</b> $999 USD ≈ ${cryptoAmount} ${coin}
-<b>Billing period:</b> Lifetime
+This unique address is valid only for 7 hours. Your payment will be processed once we confirm your deposit.
 
-<b>${coin} Payment Address:</b>
-<code>${address || "No payment address available"}</code>
+Click on contact us button and share the screenshot of your deposit to the admin for confirmation.  
 `;
 
 // Function to fetch crypto price from CoinGecko
